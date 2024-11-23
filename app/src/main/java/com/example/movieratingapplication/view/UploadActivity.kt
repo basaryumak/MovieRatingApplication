@@ -1,11 +1,11 @@
-package com.example.movieratingapplication
+package com.example.movieratingapplication.view
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.movieratingapplication.databinding.ActivityMainBinding
+import com.example.movieratingapplication.R
 import com.example.movieratingapplication.databinding.ActivityUploadBinding
 
 class UploadActivity : AppCompatActivity() {

@@ -13,7 +13,7 @@
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,8 +22,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".FeedActivity" />
-        <activity android:name=".UploadActivity" />
+        <activity android:name=".view.FeedActivity" />
+        <activity android:name=".view.UploadActivity" />
 
 
 

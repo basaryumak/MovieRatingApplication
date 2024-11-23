@@ -1,19 +1,14 @@
-package com.example.movieratingapplication
+package com.example.movieratingapplication.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.movieratingapplication.databinding.ActivityFeedBinding
 import com.example.movieratingapplication.databinding.ActivityMainBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
-import androidx.appcompat.widget.Toolbar
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         val activeUser = auth.currentUser
         if (activeUser != null){
-            val intent = Intent(this,FeedActivity::class.java)
+            val intent = Intent(this, FeedActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -48,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         password = binding.password.text.toString()
         if(email.isNotEmpty() && email.isNotBlank() && password.isNotEmpty() && password.isNotBlank()){
             auth.signInWithEmailAndPassword(email,password).addOnSuccessListener {
-                val intent = Intent(this@MainActivity,FeedActivity::class.java)
+                val intent = Intent(this@MainActivity, FeedActivity::class.java)
                 startActivity(intent)
                 finish()
             }.addOnFailureListener {
@@ -71,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
         if(email.isNotEmpty() && email.isNotBlank() && password.isNotEmpty() && password.isNotBlank()){
           auth.createUserWithEmailAndPassword(email,password).addOnSuccessListener {
-              val intent = Intent(this@MainActivity,FeedActivity::class.java)
+              val intent = Intent(this@MainActivity, FeedActivity::class.java)
               startActivity(intent)
               finish()
           }.addOnFailureListener {
