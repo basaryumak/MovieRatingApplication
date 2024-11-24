@@ -4,17 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieratingapplication.databinding.ActivityFeedBinding
-import com.example.movieratingapplication.databinding.RecylerRowBinding
+import com.example.movieratingapplication.databinding.RecyclerRowBinding
 import com.example.movieratingapplication.model.Movie
 import com.squareup.picasso.Picasso
 
 class FeedRecyclerAdapter(private val movieList:ArrayList<Movie>): RecyclerView.Adapter<FeedRecyclerAdapter.MovieHolder>() {
-    class MovieHolder(val binding: RecylerRowBinding): RecyclerView.ViewHolder(binding.root){
+    class MovieHolder(val binding: RecyclerRowBinding): RecyclerView.ViewHolder(binding.root){
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
-        val binding = RecylerRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = RecyclerRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return MovieHolder(binding)
     }
 
