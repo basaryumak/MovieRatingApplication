@@ -1,5 +1,6 @@
 package com.example.movieratingapplication.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -7,6 +8,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.movieratingapplication.MainActivity
 import com.example.movieratingapplication.R
 import com.example.movieratingapplication.adapter.FeedRecyclerAdapter
 import com.example.movieratingapplication.databinding.ActivityFeedBinding
@@ -36,12 +38,13 @@ class FeedActivity : AppCompatActivity() {
         db = Firebase.firestore
         movieArrayList = ArrayList<Movie>()
         receiveData()
-        binding.recylerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
         feedAdapter = FeedRecyclerAdapter(movieArrayList)
-        binding.recylerView.adapter = feedAdapter
+        binding.recyclerView.adapter = feedAdapter
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun receiveData(){
         db.collection("movies").orderBy("release_date",Query.Direction.DESCENDING).addSnapshotListener { value, error ->
 
