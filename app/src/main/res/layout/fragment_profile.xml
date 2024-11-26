@@ -5,7 +5,7 @@
         <!-- Declare the ViewModel -->
         <variable
             name="viewModel"
-            type="com.example.movieratingapplication.view.ProfileViewModel" />
+            type="com.example.movieratingapplication.view.viewModel.ProfileViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

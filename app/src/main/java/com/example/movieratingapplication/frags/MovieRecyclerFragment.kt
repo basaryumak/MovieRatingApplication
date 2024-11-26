@@ -63,7 +63,15 @@ class MovieRecyclerFragment : Fragment(R.layout.fragment_movie_recycler) {
                             val releaseDate = movie.get("release_date") as String
                             val overview = movie.get("overview") as String
                             val posterImage = movie.get("poster_image") as String
-                            val movieObj = Movie(overview, posterImage, releaseDate, title)
+                            val ratings = (movie.get("ratings") as? Map<*, *>)?.mapNotNull { entry ->
+                                val key = entry.key as? String       // Ensure the key is a String
+                                val value = (entry.value as? Number)?.toFloat() // Ensure the value is a Number, then convert to Float
+                                if (key != null && value != null) key to value else null
+                                 }?.toMap() ?: emptyMap()
+
+// Now create the Movie object with the parsed ratings
+
+                            val movieObj = Movie(overview, posterImage, releaseDate, title, ratings)
                             movieArrayList.add(movieObj)
                         }
                         feedAdapter.notifyDataSetChanged()
