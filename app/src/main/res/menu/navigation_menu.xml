@@ -4,6 +4,8 @@
         android:title="@string/login" />
     <item
         android:id="@+id/movieRecyclerFragment"
-
         android:title="@string/movies" />
+    <item
+        android:id="@+id/profileFragment"
+        android:title="@string/profile" />
 </menu>

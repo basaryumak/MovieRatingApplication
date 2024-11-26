@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.movieratingapplication.view.LoginFragment"
+        android:name="com.example.movieratingapplication.frags.LoginFragment"
         android:label="Login"
         tools:layout="@layout/fragment_login">
         <action
@@ -15,7 +15,18 @@
 
     <fragment
         android:id="@+id/movieRecyclerFragment"
-        android:name="com.example.movieratingapplication.view.MovieRecyclerFragment"
+        android:name="com.example.movieratingapplication.frags.MovieRecyclerFragment"
         android:label="Movies"
         tools:layout="@layout/fragment_movie_recycler" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.movieratingapplication.frags.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+        <!-- Define the action -->
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
 </navigation>

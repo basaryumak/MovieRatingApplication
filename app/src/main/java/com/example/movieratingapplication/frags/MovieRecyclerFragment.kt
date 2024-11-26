@@ -1,4 +1,4 @@
-package com.example.movieratingapplication.view
+package com.example.movieratingapplication.frags
 
 import android.annotation.SuppressLint
 import android.os.Bundle

@@ -25,19 +25,5 @@ class MainActivity : AppCompatActivity() {
         // Connect BottomNavigationView with NavController
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.setupWithNavController(navController)
-
-
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.loginFragment,
-                R.id.movieRecyclerFragment,
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-    }
-
-    // Handle Up button navigation
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

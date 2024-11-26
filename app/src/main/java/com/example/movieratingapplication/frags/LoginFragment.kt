@@ -1,4 +1,4 @@
-package com.example.movieratingapplication.view
+package com.example.movieratingapplication.frags
 
 import android.os.Bundle
 import android.util.Log
