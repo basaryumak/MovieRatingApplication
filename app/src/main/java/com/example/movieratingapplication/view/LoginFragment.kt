@@ -1,6 +1,7 @@
 package com.example.movieratingapplication.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import com.example.movieratingapplication.R
 import com.example.movieratingapplication.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
@@ -28,14 +29,17 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize FirebaseAuth
         auth = FirebaseAuth.getInstance()
 
-        // Check if user is already authenticated
         val currentUser = auth.currentUser
+        if (currentUser != null) {
+            findNavController().navigate(R.id.action_loginFragment_to_movieRecyclerFragment)
+            val userMail = currentUser.email
+            Log.d("DEBUG_USER_EMAIL", "User Email: $userMail")
+            Toast.makeText(requireContext(), "User Email: $userMail", Toast.LENGTH_SHORT).show()
+        }
 
 
-        // Set up button click listeners
         binding.signInButton.setOnClickListener { signIn() }
         binding.signUpButton.setOnClickListener { signUp() }
     }
@@ -52,11 +56,9 @@ class LoginFragment : Fragment() {
 
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                // Navigate to MovieRecyclerFragment on successful login
                 findNavController().navigate(R.id.action_loginFragment_to_movieRecyclerFragment)
             }
             .addOnFailureListener { error ->
-                // Show error message
                 Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_LONG).show()
             }
     }
@@ -65,7 +67,6 @@ class LoginFragment : Fragment() {
         val email = binding.emailText.text.toString().trim()
         val password = binding.password.text.toString().trim()
 
-        // Validate inputs
         if (email.isBlank() || password.isBlank()) {
             Toast.makeText(requireContext(), "Email or password cannot be empty", Toast.LENGTH_LONG).show()
             return
@@ -73,11 +74,9 @@ class LoginFragment : Fragment() {
 
         auth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                // Navigate to MovieRecyclerFragment on successful sign-up
                 findNavController().navigate(R.id.action_loginFragment_to_movieRecyclerFragment)
             }
             .addOnFailureListener { error ->
-                // Show error message
                 Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_LONG).show()
             }
     }

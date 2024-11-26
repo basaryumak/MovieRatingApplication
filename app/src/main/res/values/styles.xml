@@ -1,0 +1,13 @@
+<resources>
+    <!-- Active text appearance -->
+    <style name="BottomNavTextActive" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item> <!-- Larger text size -->
+        <item name="android:textColor">@android:color/white</item> <!-- White text color -->
+    </style>
+
+    <!-- Inactive text appearance -->
+    <style name="BottomNavTextInactive" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item> <!-- Slightly smaller for inactive -->
+        <item name="android:textColor">@android:color/white</item> <!-- White text color -->
+    </style>
+</resources>
