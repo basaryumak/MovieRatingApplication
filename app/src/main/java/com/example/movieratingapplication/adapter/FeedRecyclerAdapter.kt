@@ -3,7 +3,6 @@ package com.example.movieratingapplication.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.movieratingapplication.databinding.ActivityFeedBinding
 import com.example.movieratingapplication.databinding.RecyclerRowBinding
 import com.example.movieratingapplication.model.Movie
 import com.squareup.picasso.Picasso
@@ -26,6 +25,6 @@ class FeedRecyclerAdapter(private val movieList:ArrayList<Movie>): RecyclerView.
         holder.binding.recyclerOverviewText.text = movieList.get(position).overview
         holder.binding.recyclerTitleText.text = movieList.get(position).title
         holder.binding.recyclerDateText.text = movieList.get(position).releaseDate
-        Picasso.get().load(movieList.get(position).posterImage).into(holder.binding.recyclerImageView)
+        Picasso.get().load(movieList[position].posterImage).into(holder.binding.recyclerImageView)
     }
 }

@@ -1,0 +1,21 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.movieratingapplication.view.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_movieRecyclerFragment"
+            app:destination="@id/movieRecyclerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieRecyclerFragment"
+        android:name="com.example.movieratingapplication.view.MovieRecyclerFragment"
+        android:label="Movies"
+        tools:layout="@layout/fragment_movie_recycler" />
+</navigation>

@@ -1,17 +1,18 @@
 package com.example.movieratingapplication.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.movieratingapplication.R
 import com.example.movieratingapplication.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginFragment : Fragment() {
+
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
@@ -19,7 +20,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -27,48 +28,58 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity).supportActionBar?.title = "Login "
-
+        // Initialize FirebaseAuth
         auth = FirebaseAuth.getInstance()
 
+        // Check if user is already authenticated
+        val currentUser = auth.currentUser
+
+
+        // Set up button click listeners
         binding.signInButton.setOnClickListener { signIn() }
         binding.signUpButton.setOnClickListener { signUp() }
     }
 
     private fun signIn() {
-        val email = binding.emailText.text.toString()
-        val password = binding.password.text.toString()
-        if (email.isNotBlank() && password.isNotBlank()) {
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnSuccessListener {
-                    val intent = Intent(requireContext(), FeedActivity::class.java)
-                    startActivity(intent)
-                    requireActivity().finish()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_LONG).show()
-                }
-        } else {
+        val email = binding.emailText.text.toString().trim()
+        val password = binding.password.text.toString().trim()
+
+        // Validate inputs
+        if (email.isBlank() || password.isBlank()) {
             Toast.makeText(requireContext(), "Email or password cannot be empty", Toast.LENGTH_LONG).show()
+            return
         }
+
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnSuccessListener {
+                // Navigate to MovieRecyclerFragment on successful login
+                findNavController().navigate(R.id.action_loginFragment_to_movieRecyclerFragment)
+            }
+            .addOnFailureListener { error ->
+                // Show error message
+                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_LONG).show()
+            }
     }
 
     private fun signUp() {
-        val email = binding.emailText.text.toString()
-        val password = binding.password.text.toString()
-        if (email.isNotBlank() && password.isNotBlank()) {
-            auth.createUserWithEmailAndPassword(email, password)
-                .addOnSuccessListener {
-                    val intent = Intent(requireContext(), FeedActivity::class.java)
-                    startActivity(intent)
-                    requireActivity().finish()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_LONG).show()
-                }
-        } else {
+        val email = binding.emailText.text.toString().trim()
+        val password = binding.password.text.toString().trim()
+
+        // Validate inputs
+        if (email.isBlank() || password.isBlank()) {
             Toast.makeText(requireContext(), "Email or password cannot be empty", Toast.LENGTH_LONG).show()
+            return
         }
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnSuccessListener {
+                // Navigate to MovieRecyclerFragment on successful sign-up
+                findNavController().navigate(R.id.action_loginFragment_to_movieRecyclerFragment)
+            }
+            .addOnFailureListener { error ->
+                // Show error message
+                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_LONG).show()
+            }
     }
 
     override fun onDestroyView() {

@@ -16,6 +16,7 @@
         android:layout_marginTop="6dp"
 
 
+        android:contentDescription="TODO"
         app:layout_constraintBottom_toTopOf="@id/recyclerDateText"
         app:layout_constraintEnd_toStartOf="@+id/recyclerOverviewText"
         app:layout_constraintStart_toStartOf="parent"
