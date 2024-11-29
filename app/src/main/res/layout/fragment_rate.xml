@@ -1,0 +1,117 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.movieratingapplication.viewModel.RatesViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <!-- Display Current Rating -->
+
+        <!-- Current Rating Bar (Non-modifiable) -->
+        <TextView
+            android:id="@+id/currentRatingLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="104dp"
+            android:text="Current Rating:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RatingBar
+            android:id="@+id/currentRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.1"
+            android:isIndicator="true"
+            app:rating="@{viewModel.currentRating.averageRating}"
+            app:layout_constraintTop_toBottomOf="@id/currentRatingLabel"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Current Numeric Rating -->
+        <TextView
+            android:id="@+id/currentNumericRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.currentRating.averageRating + ` ratings`}"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@id/currentRatingBar"
+            app:layout_constraintStart_toEndOf="@id/currentRatingBar"
+            app:layout_constraintBottom_toBottomOf="@id/currentRatingBar" />
+
+        <!-- Count of Ratings -->
+        <TextView
+            android:id="@+id/ratingCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.currentRating.numberOfRatings + ` ratings`}"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            app:layout_constraintTop_toBottomOf="@id/currentRatingBar"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <!-- User Input Rating Bar -->
+
+        <!-- Submit Button -->
+
+        <!-- Delete My Rating Button -->
+
+        <TextView
+            android:id="@+id/userRatingLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="28dp"
+            android:text="Your Rating:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ratingCount" />
+
+        <RatingBar
+            android:id="@+id/userRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="40dp"
+            android:numStars="5"
+            android:stepSize="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userRatingLabel" />
+
+        <Button
+            android:id="@+id/submitRatingButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:text="Submit Rating"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userRatingBar" />
+
+        <Button
+            android:id="@+id/deleteRatingButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Delete My Rating"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/submitRatingButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
