@@ -1,15 +1,13 @@
 package com.example.movieratingapplication.model
 
-data class Movie(val overview:String,val posterImage:String, val releaseDate:String,val title:String, val ratings:Map<String, Float>) {
-    fun getAverageRating(): Float {
-        return if (ratings.isNotEmpty()) {
-            ratings.values.sum() / ratings.size
-        } else {
-            0f
-        }
+data class Movie(val overview:String,val posterImage:String, val releaseDate:String,val title:String, val ratings: List<Float>, val ID: String) {
+
+    fun calculateAverageRating(): Float {
+        return (this.ratings.sum()/this.ratings.size).toFloat()
     }
 
+    // Helper function to get the number of ratings for a specific movie
     fun getNumberOfRatings(): Int {
-        return ratings.size
+        return this.ratings.size
     }
 }

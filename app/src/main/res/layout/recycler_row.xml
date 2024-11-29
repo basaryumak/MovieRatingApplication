@@ -44,7 +44,7 @@
         android:text="@string/date"
         android:textAlignment="center"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/recyclerRatingBar"
         app:layout_constraintEnd_toEndOf="@id/recyclerImageView"
         app:layout_constraintStart_toStartOf="@id/recyclerImageView"
         app:layout_constraintTop_toBottomOf="@id/recyclerImageView" />
@@ -71,9 +71,11 @@
         android:numStars="5"
         android:stepSize="0.5"
         android:rating="4"
+        android:isIndicator="true"
         app:layout_constraintEnd_toStartOf="@id/recyclerOverviewText"
         app:layout_constraintStart_toStartOf="@id/recyclerImageView"
         app:layout_constraintTop_toBottomOf="@id/recyclerDateText" />
+
 
     <!-- Numeric Rating Display -->
     <TextView
@@ -99,4 +101,17 @@
         app:layout_constraintEnd_toStartOf="@id/recyclerOverviewText"
         app:layout_constraintStart_toStartOf="@id/recyclerImageView"
         app:layout_constraintTop_toBottomOf="@id/recyclerNumericRatingText" />
+
+    <!-- Button to Navigate to Rate Fragment -->
+    <Button
+        android:id="@+id/recyclerRateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="rate_now"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/recyclerImageView"
+        app:layout_constraintStart_toStartOf="@id/recyclerImageView"
+        app:layout_constraintTop_toBottomOf="@id/recyclerNumberOfRatingsText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

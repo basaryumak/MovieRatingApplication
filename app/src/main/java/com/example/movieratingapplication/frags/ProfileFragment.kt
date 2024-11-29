@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.movieratingapplication.R
 import com.example.movieratingapplication.databinding.FragmentProfileBinding
-import com.example.movieratingapplication.view.viewModel.ProfileViewModel
+import com.example.movieratingapplication.viewModel.ProfileViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 class ProfileFragment : Fragment() {

@@ -17,7 +17,28 @@
         android:id="@+id/movieRecyclerFragment"
         android:name="com.example.movieratingapplication.frags.MovieRecyclerFragment"
         android:label="Movies"
-        tools:layout="@layout/fragment_movie_recycler" />
+        tools:layout="@layout/fragment_movie_recycler">
+        <action
+            android:id="@+id/action_movieRecyclerFragment_to_rateFragment"
+            app:destination="@id/rateFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/rateFragment"
+        android:name="com.example.movieratingapplication.frags.RateFragment"
+        android:label="Rate Fragment"
+        tools:layout="@layout/fragment_rate" >
+        <action
+            android:id="@+id/action_rateFragment_to_movieRecyclerFragment"
+            app:destination="@id/movieRecyclerFragment" />
+        <argument
+            android:name="MOVIE_ID"
+            app:argType="string" />
+
+
+    </fragment>
+
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.movieratingapplication.frags.ProfileFragment"
