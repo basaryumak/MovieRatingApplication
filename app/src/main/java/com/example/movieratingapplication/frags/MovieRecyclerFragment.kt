@@ -1,10 +1,10 @@
 package com.example.movieratingapplication.frags
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +14,6 @@ import com.example.movieratingapplication.databinding.FragmentMovieRecyclerBindi
 import com.example.movieratingapplication.model.Movie
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Query
 
 class MovieRecyclerFragment : Fragment(R.layout.fragment_movie_recycler) {
@@ -26,7 +25,6 @@ class MovieRecyclerFragment : Fragment(R.layout.fragment_movie_recycler) {
     private lateinit var db: FirebaseFirestore
     private lateinit var movieArrayList: ArrayList<Movie>
     private lateinit var feedAdapter: FeedRecyclerAdapter
-    private var ratingsListener: ListenerRegistration? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,7 +68,7 @@ class MovieRecyclerFragment : Fragment(R.layout.fragment_movie_recycler) {
                             val overview = movie.get("overview") as String
                             val posterImage = movie.get("poster_image") as String
                             val ratingsCollectionRef = movie.reference.collection("ratings")
-                            val ID = movie.id
+                            val iD = movie.id
 
                             ratingsCollectionRef.get().addOnSuccessListener { ratingsSnapshot ->
                                 val ratingsList = ratingsSnapshot.documents.mapNotNull { doc ->
@@ -78,7 +76,7 @@ class MovieRecyclerFragment : Fragment(R.layout.fragment_movie_recycler) {
                                 }.toMutableList()
 
                                 // Create the Movie object after ratings are fetched
-                                val movieObj = Movie(overview, posterImage, releaseDate, title, ratingsList, ID)
+                                val movieObj = Movie(overview, posterImage, releaseDate, title, ratingsList, iD)
 
                                 // Add the movie to the list
                                 movieArrayList.add(movieObj)

@@ -25,7 +25,7 @@ class ProfileFragment : Fragment() {
         // Inflate layout and bind ViewModel
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 

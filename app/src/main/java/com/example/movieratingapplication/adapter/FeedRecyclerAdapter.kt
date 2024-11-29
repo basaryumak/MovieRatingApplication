@@ -8,15 +8,11 @@ import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieratingapplication.R
 import com.example.movieratingapplication.databinding.RecyclerRowBinding
-import com.example.movieratingapplication.frags.RateFragment
 import com.example.movieratingapplication.model.Movie
 import com.squareup.picasso.Picasso
 
 class FeedRecyclerAdapter(private val movieList:ArrayList<Movie>): RecyclerView.Adapter<FeedRecyclerAdapter.MovieHolder>() {
-    class MovieHolder(val binding: RecyclerRowBinding): RecyclerView.ViewHolder(binding.root){
-
-
-    }
+    class MovieHolder(val binding: RecyclerRowBinding): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val binding = RecyclerRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -29,12 +25,12 @@ class FeedRecyclerAdapter(private val movieList:ArrayList<Movie>): RecyclerView.
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        holder.binding.recyclerOverviewText.text = movieList.get(position).overview
-        holder.binding.recyclerTitleText.text = movieList.get(position).title
-        holder.binding.recyclerDateText.text = movieList.get(position).releaseDate
-        holder.binding.recyclerRatingBar.rating = movieList.get(position).calculateAverageRating()
-        holder.binding.recyclerNumberOfRatingsText.text = movieList.get(position).getNumberOfRatings().toString()
-        holder.binding.recyclerNumericRatingText.text = movieList.get(position).calculateAverageRating().toString()
+        holder.binding.recyclerOverviewText.text = movieList[position].overview
+        holder.binding.recyclerTitleText.text = movieList[position].title
+        holder.binding.recyclerDateText.text = movieList[position].releaseDate
+        holder.binding.recyclerRatingBar.rating = movieList[position].calculateAverageRating()
+        holder.binding.recyclerNumberOfRatingsText.text = movieList[position].getNumberOfRatings().toString()
+        holder.binding.recyclerNumericRatingText.text = movieList[position].calculateAverageRating().toString()
         Picasso.get().load(movieList[position].posterImage).into(holder.binding.recyclerImageView)
 
         holder.binding.recyclerRateButton.setOnClickListener {
@@ -46,7 +42,7 @@ class FeedRecyclerAdapter(private val movieList:ArrayList<Movie>): RecyclerView.
             }
 
             val bundle = Bundle().apply {
-                putString("MOVIE_ID", movieList[position].ID) // Pass the movie ID
+                putString("MOVIE_ID", movieList[position].iD) // Pass the movie ID
             }
             navController.navigate(action, bundle)   }
     }

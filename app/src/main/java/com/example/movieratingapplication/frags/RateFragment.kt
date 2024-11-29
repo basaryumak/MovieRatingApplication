@@ -1,12 +1,12 @@
 package com.example.movieratingapplication.frags
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.movieratingapplication.R
 import com.example.movieratingapplication.databinding.FragmentRateBinding
@@ -18,16 +18,7 @@ class RateFragment : Fragment(R.layout.fragment_rate) {
     private lateinit var viewModel: RatesViewModel
     private var movieID: String? = null
 
-    companion object {
-        fun newInstance(movieID: String): RateFragment {
-            val fragment = RateFragment()
-            val bundle = Bundle().apply {
-                putString("MOVIE_ID", movieID)
-            }
-            fragment.arguments = bundle
-            return fragment
-        }
-    }
+    companion object;
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,26 +30,30 @@ class RateFragment : Fragment(R.layout.fragment_rate) {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // Initialize ViewModel
-        viewModel = ViewModelProvider(this).get(RatesViewModel::class.java)
+        viewModel = ViewModelProvider(this)[RatesViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        viewModel.userRating.observe(viewLifecycleOwner) { rating ->
+            binding.userRatingBar.rating = rating ?: 0f // Default to 0 if no rating is found
+        }
 
+        viewModel.fetchUserRating(movieID)
         viewModel.fetchRates(movieID)
 
-
         // Observe current rating data
-        viewModel.currentRating.observe(viewLifecycleOwner, Observer { rating ->
+        viewModel.currentRating.observe(viewLifecycleOwner) { rating ->
             if (rating != null) {
                 binding.currentRatingBar.rating = rating.averageRating
                 binding.currentNumericRating.text = "${rating.averageRating}/5.0"
                 binding.ratingCount.text = "${rating.numberOfRatings} ratings"
             }
-        })
+        }
 
         // Handle submit rating button click
         binding.submitRatingButton.setOnClickListener {
@@ -79,11 +74,11 @@ class RateFragment : Fragment(R.layout.fragment_rate) {
         }
 
         // Observe error messages
-        viewModel.errorMessage.observe(viewLifecycleOwner, Observer { message ->
+        viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
             message?.let {
                 Toast.makeText(context, it, Toast.LENGTH_LONG).show()
             }
-        })
+        }
     }
 
     override fun onDestroyView() {
