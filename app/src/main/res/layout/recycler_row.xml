@@ -5,91 +5,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:padding="24dp">
 
-    <!-- Movie Image -->
     <ImageView
         android:id="@+id/recyclerImageView"
         android:layout_width="210dp"
         android:layout_height="280dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="6dp"
-        android:contentDescription="TODO"
+        android:layout_marginTop="12dp"
         app:layout_constraintBottom_toTopOf="@id/recyclerDateText"
         app:layout_constraintEnd_toStartOf="@id/recyclerOverviewText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recyclerTitleText"
         tools:srcCompat="@tools:sample/backgrounds/scenic[5]" />
 
-    <!-- Movie Title -->
     <TextView
         android:id="@+id/recyclerTitleText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:text="@string/title"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/recyclerImageView"
-        app:layout_constraintEnd_toEndOf="@id/recyclerImageView"
+        app:layout_constraintEnd_toEndOf="@id/recyclerOverviewText"
         app:layout_constraintStart_toStartOf="@id/recyclerImageView"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Movie Date -->
     <TextView
         android:id="@+id/recyclerDateText"
         android:layout_width="159dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="@string/date"
         android:textAlignment="center"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/recyclerRatingBar"
-        app:layout_constraintEnd_toEndOf="@id/recyclerImageView"
+        app:layout_constraintEnd_toEndOf="@id/recyclerOverviewText"
+        app:layout_constraintStart_toStartOf="@id/recyclerOverviewText"
+        app:layout_constraintTop_toBottomOf="@id/recyclerOverviewText" />
+
+    <TextView
+        android:id="@+id/recyclerOverviewText"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/overview"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/recyclerImageView"
+        app:layout_constraintTop_toTopOf="@id/recyclerImageView"
+        />
+
+    <RatingBar
+        android:id="@+id/recyclerRatingBar"
+        android:layout_width="235dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="8dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:rating="4"
+        android:stepSize="0.5"
+
+        app:layout_constraintEnd_toEndOf="@+id/recyclerOverviewText"
         app:layout_constraintStart_toStartOf="@id/recyclerImageView"
         app:layout_constraintTop_toBottomOf="@id/recyclerImageView" />
 
-    <!-- Movie Overview -->
-    <TextView
-        android:id="@+id/recyclerOverviewText"
-        android:layout_width="175dp"
-        android:layout_height="196dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/overview"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/recyclerImageView"
-        app:layout_constraintTop_toTopOf="@id/recyclerImageView" />
 
-    <!-- Rating Bar -->
-    <RatingBar
-        android:id="@+id/recyclerRatingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:numStars="5"
-        android:stepSize="0.5"
-        android:rating="4"
-        android:isIndicator="true"
-        app:layout_constraintEnd_toStartOf="@id/recyclerOverviewText"
-        app:layout_constraintStart_toStartOf="@id/recyclerImageView"
-        app:layout_constraintTop_toBottomOf="@id/recyclerDateText" />
-
-
-    <!-- Numeric Rating Display -->
     <TextView
         android:id="@+id/recyclerNumericRatingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="12dp"
         android:text="4.0/5.0"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@id/recyclerOverviewText"
-        app:layout_constraintStart_toStartOf="@id/recyclerImageView"
-        app:layout_constraintTop_toBottomOf="@id/recyclerRatingBar" />
+        app:layout_constraintStart_toStartOf="@id/recyclerRatingBar"
+        app:layout_constraintEnd_toStartOf="@id/recyclerRateButton"
+        app:layout_constraintTop_toBottomOf="@id/recyclerRatingBar"
+        />
 
-    <!-- Number of Ratings Display -->
     <TextView
         android:id="@+id/recyclerNumberOfRatingsText"
         android:layout_width="wrap_content"
@@ -98,20 +94,19 @@
         android:text="123 ratings"
         android:textSize="12sp"
         android:textColor="@android:color/darker_gray"
-        app:layout_constraintEnd_toStartOf="@id/recyclerOverviewText"
-        app:layout_constraintStart_toStartOf="@id/recyclerImageView"
+        app:layout_constraintStart_toStartOf="@id/recyclerNumericRatingText"
+        app:layout_constraintEnd_toEndOf="@id/recyclerNumericRatingText"
         app:layout_constraintTop_toBottomOf="@id/recyclerNumericRatingText" />
 
-    <!-- Button to Navigate to Rate Fragment -->
     <Button
         android:id="@+id/recyclerRateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="rate_now"
+        android:layout_marginEnd="8dp"
+        android:text="RATE NOW !"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/recyclerImageView"
-        app:layout_constraintStart_toStartOf="@id/recyclerImageView"
-        app:layout_constraintTop_toBottomOf="@id/recyclerNumberOfRatingsText" />
+        app:layout_constraintEnd_toEndOf="@id/recyclerRatingBar"
+        app:layout_constraintTop_toBottomOf="@id/recyclerRatingBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

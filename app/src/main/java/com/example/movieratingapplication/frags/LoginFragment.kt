@@ -48,7 +48,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val email = binding.emailText.text.toString().trim()
         val password = binding.password.text.toString().trim()
 
-        // Validate inputs
         if (email.isBlank() || password.isBlank()) {
             Toast.makeText(requireContext(), "Email or password cannot be empty", Toast.LENGTH_LONG).show()
             return

@@ -30,17 +30,15 @@ class FeedRecyclerAdapter(private val movieList:ArrayList<Movie>): RecyclerView.
         holder.binding.recyclerDateText.text = movieList[position].releaseDate
         holder.binding.recyclerRatingBar.rating = movieList[position].calculateAverageRating()
         holder.binding.recyclerNumberOfRatingsText.text = movieList[position].getNumberOfRatings().toString()
-        holder.binding.recyclerNumericRatingText.text = movieList[position].calculateAverageRating().toString()
+        holder.binding.recyclerNumericRatingText.text = "${movieList[position].calculateAverageRating()} / 5.0"
         Picasso.get().load(movieList[position].posterImage).into(holder.binding.recyclerImageView)
-
         holder.binding.recyclerRateButton.setOnClickListener {
             val navController = findNavController(holder.itemView)
-            val action = R.id.action_movieRecyclerFragment_to_rateFragment // Replace with your actual action ID
+            val action = R.id.action_movieRecyclerFragment_to_rateFragment // Replace with your actual action   ID
             val currentDestination = findNavController(holder.itemView).currentDestination?.id
             if (currentDestination == R.id.rateFragment) {
                 findNavController(holder.itemView).navigate(R.id.action_rateFragment_to_movieRecyclerFragment)
             }
-
             val bundle = Bundle().apply {
                 putString("MOVIE_ID", movieList[position].iD) // Pass the movie ID
             }

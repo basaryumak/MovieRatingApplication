@@ -46,8 +46,6 @@ class MovieRecyclerFragment : Fragment(R.layout.fragment_movie_recycler) {
         feedAdapter = FeedRecyclerAdapter(movieArrayList)
         binding.recyclerView.adapter = feedAdapter
 
-
-
         // Load data
         receiveData()
     }

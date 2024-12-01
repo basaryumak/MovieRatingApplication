@@ -16,15 +16,12 @@ class RatesViewModel : ViewModel() {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    // LiveData for current rating
     private val _currentRating = MutableLiveData<Rating>()
     val currentRating: LiveData<Rating> get() = _currentRating
 
-    // LiveData for error messages
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> get() = _errorMessage
 
-    // LiveData for user rating
     private val _userRating = MutableLiveData<Float?>()
     val userRating: LiveData<Float?> get() = _userRating
 
