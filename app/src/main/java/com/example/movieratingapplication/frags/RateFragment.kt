@@ -39,10 +39,15 @@ class RateFragment : Fragment(R.layout.fragment_rate) {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        viewModel.movieName.observe(viewLifecycleOwner) { name ->
+            binding.movieNameLabel.text = name ?: "Movie Name Not Available"
+        }
+
         viewModel.userRating.observe(viewLifecycleOwner) { rating ->
             binding.userRatingBar.rating = rating ?: 0f // Default to 0 if no rating is found
         }
 
+        viewModel.fetchMovieName(movieID)
         viewModel.fetchUserRating(movieID)
         viewModel.fetchRates(movieID)
 

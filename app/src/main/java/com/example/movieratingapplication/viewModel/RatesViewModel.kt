@@ -26,6 +26,9 @@ class RatesViewModel : ViewModel() {
     private val _userRating = MutableLiveData<Float?>()
     val userRating: LiveData<Float?> get() = _userRating
 
+    private val _movieName = MutableLiveData<String?>()
+    val movieName: LiveData<String?> get() = _movieName
+
 
     private var ratingsListener: ListenerRegistration? = null
 
@@ -134,6 +137,29 @@ class RatesViewModel : ViewModel() {
                 _userRating.value = rating
             } else {
                 _userRating.value = null // No rating document found
+            }
+        }
+    }
+
+    fun fetchMovieName(movieId: String?) {
+        if (movieId.isNullOrEmpty()) {
+            _errorMessage.value = "Movie ID is missing."
+            return
+        }
+
+        val movieRef = db.collection("movies").document(movieId)
+
+        ratingsListener = movieRef.addSnapshotListener { snapshot, error ->
+            if (error != null) {
+                _errorMessage.value = "Error fetching ratings: ${error.localizedMessage}"
+                return@addSnapshotListener
+            }
+
+            if (snapshot != null && snapshot.exists()) {
+                val name = snapshot.getString("title")
+                _movieName.value = name
+            } else {
+                _movieName.value = null // No rating document found
             }
         }
     }
