@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
+import java.util.Locale
 
 // Data class for holding current rating information
 data class Rating(val averageRating: Float, val numberOfRatings: Int)
@@ -51,7 +52,7 @@ class RatesViewModel : ViewModel() {
                 } else {
                     0.0f
                 }
-                val roundedAverageRating = String.format("%.1f", averageRating).toFloat()
+                val roundedAverageRating = String.format(Locale.US, "%.1f", averageRating).toFloat()
 
                 val numberOfRatings = ratingsList.size
                 _currentRating.value = Rating(roundedAverageRating, numberOfRatings)
