@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.movieratingapplication.R
 import com.example.movieratingapplication.databinding.FragmentLoginBinding
+import com.example.movieratingapplication.viewModel.AuthViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
@@ -17,6 +19,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
+
+    private val authViewModel: AuthViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,12 +37,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            findNavController().navigate(R.id.action_loginFragment_to_movieRecyclerFragment)
-            val userMail = currentUser.email
-            Log.d("DEBUG_USER_EMAIL", "User Email: $userMail")
-            Toast.makeText(requireContext(), "User Email: $userMail", Toast.LENGTH_SHORT).show()
+            authViewModel.isAuthenticated.value = true
+            navigateToMovies(currentUser.email)
         }
-
 
         binding.signInButton.setOnClickListener { signIn() }
         binding.signUpButton.setOnClickListener { signUp() }
@@ -54,8 +55,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         auth.signInWithEmailAndPassword(email, password)
-            .addOnSuccessListener {
-                findNavController().navigate(R.id.action_loginFragment_to_movieRecyclerFragment)
+            .addOnSuccessListener { result ->
+                val user = result.user
+                if (user != null) {
+                    // Update ViewModel's state
+                    authViewModel.isAuthenticated.value = true
+                    navigateToMovies(user.email)
+                }
             }
             .addOnFailureListener { error ->
                 Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_LONG).show()
@@ -72,12 +78,22 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         auth.createUserWithEmailAndPassword(email, password)
-            .addOnSuccessListener {
-                findNavController().navigate(R.id.action_loginFragment_to_movieRecyclerFragment)
+            .addOnSuccessListener { result ->
+                val user = result.user
+                if (user != null) {
+                    authViewModel.isAuthenticated.value = true
+                    navigateToMovies(user.email)
+                }
             }
             .addOnFailureListener { error ->
                 Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_LONG).show()
             }
+    }
+
+    private fun navigateToMovies(email: String?) {
+        Toast.makeText(requireContext(), "Welcome, $email", Toast.LENGTH_SHORT).show()
+        Log.d("DEBUG_USER_EMAIL", "User Email: $email")
+        findNavController().navigate(R.id.action_loginFragment_to_movieRecyclerFragment)
     }
 
     override fun onDestroyView() {

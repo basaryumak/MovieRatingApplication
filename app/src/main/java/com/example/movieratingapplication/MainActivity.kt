@@ -1,14 +1,18 @@
 package com.example.movieratingapplication
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.movieratingapplication.viewModel.AuthViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
+    private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,24 +25,20 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.setupWithNavController(navController)
 
-        // Dynamically update menu
-        updateBottomNavigationMenu(bottomNavigationView)
-    }
-
-    private fun updateBottomNavigationMenu(bottomNavigationView: BottomNavigationView) {
-        val menu = bottomNavigationView.menu
-        menu.clear()
-
-        if (isAuthenticated()) {
-            menu.add(0, R.id.movieRecyclerFragment, 0, "Movies")
-            menu.add(0, R.id.profileFragment, 1, "Profile")
-        } else {
-            menu.add(0, R.id.loginFragment, 0, "Login")
+        authViewModel.isAuthenticated.observe(this) { isAuthenticated ->
+            updateBottomNavigationMenu(bottomNavigationView, isAuthenticated)
         }
     }
 
-    private fun isAuthenticated(): Boolean {
-        // Replace with logic to check user authentication, e.g., SharedPreferences or ViewModel
-        return false // Change based on your auth logic
+    private fun updateBottomNavigationMenu(bottomNavigationView: BottomNavigationView, isAuthenticated: Boolean) {
+        val menu = bottomNavigationView.menu
+        menu.clear()
+
+        if (isAuthenticated) {
+            menu.add(0, R.id.movieRecyclerFragment, 0, "Movies")
+            menu.add(0, R.id.profileFragment, 1, "Profile")
+        } else {
+            menu.add(0, R.id.loginFragment, 0, "Log In")
+        }
     }
 }
