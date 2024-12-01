@@ -1,19 +1,21 @@
 package com.example.movieratingapplication.model
+import androidx.lifecycle.MutableLiveData
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-data class Movie(val overview:String,val posterImage:String, val releaseDate:String,val title:String, val ratings: List<Float>, val iD: String) {
-
+data class Movie(val overview: String, val posterImage: String, val releaseDate: String, val title: String, val ratings: MutableLiveData<List<Float>>, val iD: String) {
 
 
     fun calculateAverageRating(): Float {
-        val average = this.ratings.sum() / this.ratings.size.toFloat()
+        val ratingsList = ratings.value ?: emptyList()
+        if (ratingsList.isEmpty()) {
+            return 0.0f
+        }
+        val average = ratingsList.sum() / ratingsList.size
         return BigDecimal(average.toString()).setScale(1, RoundingMode.HALF_UP).toFloat()
     }
 
-
-    // Helper function to get the number of ratings for a specific movie
     fun getNumberOfRatings(): Int {
-        return this.ratings.size
+        return ratings.value?.size ?: 0
     }
 }

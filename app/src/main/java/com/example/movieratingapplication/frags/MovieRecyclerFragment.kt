@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieratingapplication.R
 import com.example.movieratingapplication.adapter.FeedRecyclerAdapter
@@ -37,7 +38,6 @@ class MovieRecyclerFragment : Fragment(R.layout.fragment_movie_recycler) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize Firebase and RecyclerView
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
         movieArrayList = ArrayList()
@@ -46,7 +46,6 @@ class MovieRecyclerFragment : Fragment(R.layout.fragment_movie_recycler) {
         feedAdapter = FeedRecyclerAdapter(movieArrayList)
         binding.recyclerView.adapter = feedAdapter
 
-        // Load data
         receiveData()
     }
 
@@ -56,39 +55,46 @@ class MovieRecyclerFragment : Fragment(R.layout.fragment_movie_recycler) {
             .addSnapshotListener { value, error ->
                 if (error != null) {
                     Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_LONG).show()
-                } else {
-                    if (value != null && !value.isEmpty) {
-                        val movies = value.documents
-                        movieArrayList.clear()
-                        for (movie in movies) {
-                            val title = movie.get("title") as String
-                            val releaseDate = movie.get("release_date") as String
-                            val overview = movie.get("overview") as String
-                            val posterImage = movie.get("poster_image") as String
-                            val ratingsCollectionRef = movie.reference.collection("ratings")
-                            val iD = movie.id
+                    return@addSnapshotListener
+                }
 
-                            ratingsCollectionRef.get().addOnSuccessListener { ratingsSnapshot ->
-                                val ratingsList = ratingsSnapshot.documents.mapNotNull { doc ->
-                                    doc.getDouble("rate")?.toFloat()
-                                }.toMutableList()
+                if (value != null && !value.isEmpty) {
+                    val movies = value.documents
+                    movieArrayList.clear()
+                    for (movie in movies) {
+                        val title = movie.getString("title") ?: ""
+                        val releaseDate = movie.getString("release_date") ?: ""
+                        val overview = movie.getString("overview") ?: ""
+                        val posterImage = movie.getString("poster_image") ?: ""
+                        val movieId = movie.id
 
-                                // Create the Movie object after ratings are fetched
-                                val movieObj = Movie(overview, posterImage, releaseDate, title, ratingsList, iD)
+                        val ratingsListLiveData = MutableLiveData<List<Float>>(emptyList())
 
-                                // Add the movie to the list
-                                movieArrayList.add(movieObj)
+                        val movieObj = Movie(overview, posterImage, releaseDate, title, ratingsListLiveData, movieId)
+                        movieArrayList.add(movieObj)
 
-                                // Notify adapter after updating the list
-                                feedAdapter.notifyDataSetChanged()
-                            }.addOnFailureListener { ratingsError ->
+                        ratingsListLiveData.observe(viewLifecycleOwner) {
+                            feedAdapter.notifyDataSetChanged()
+                        }
+
+                        movie.reference.collection("ratings").addSnapshotListener { ratingsSnapshot, ratingsError ->
+                            if (ratingsError != null) {
                                 Toast.makeText(requireContext(), ratingsError.localizedMessage, Toast.LENGTH_LONG).show()
+                                return@addSnapshotListener
                             }
+
+                            val ratings = ratingsSnapshot?.documents?.mapNotNull { doc ->
+                                doc.getDouble("rate")?.toFloat()
+                            } ?: emptyList()
+
+                            ratingsListLiveData.postValue(ratings)
                         }
                     }
+                    feedAdapter.notifyDataSetChanged()
                 }
             }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
