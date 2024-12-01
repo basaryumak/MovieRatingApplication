@@ -54,9 +54,10 @@ dependencies {
     androidTestImplementation libs.androidx.espresso.core
     implementation libs.androidx.lifecycle.livedata.ktx.v261
     implementation libs.androidx.lifecycle.viewmodel.ktx.v261
-    implementation "androidx.navigation:navigation-fragment-ktx:2.7.3"
-    implementation "androidx.navigation:navigation-ui-ktx:2.7.3"
-
+    implementation libs.androidx.navigation.fragment.ktx.v273
+    implementation libs.androidx.navigation.ui.ktx.v273
+    implementation libs.lifecycle.livedata.ktx
+    implementation libs.lifecycle.viewmodel.ktx
     // Firebase dependencies (using Firebase BoM)
     implementation platform(libs.google.firebase.bom)
     implementation(libs.firebase.analytics)
@@ -72,4 +73,7 @@ dependencies {
     implementation platform(libs.google.firebase.bom)
     implementation libs.google.firebase.auth
     implementation libs.picasso
+
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
 }

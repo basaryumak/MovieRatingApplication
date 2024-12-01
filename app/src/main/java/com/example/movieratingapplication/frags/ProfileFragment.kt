@@ -42,8 +42,11 @@ class ProfileFragment : Fragment() {
         binding.logoutButton.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             authViewModel.isAuthenticated.value = false
+            authViewModel.email.value = ""
+            authViewModel.displayName.value = "Hi !"
             Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
         }
+
     }
 }
