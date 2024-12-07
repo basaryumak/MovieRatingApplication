@@ -37,17 +37,18 @@ class MovieRecyclerFragment : Fragment(R.layout.fragment_movie_recycler) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
         movieArrayList = ArrayList()
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
         feedAdapter = FeedRecyclerAdapter(movieArrayList)
         binding.recyclerView.adapter = feedAdapter
 
         receiveData()
     }
+
 
     @SuppressLint("NotifyDataSetChanged")
     private fun receiveData() {
