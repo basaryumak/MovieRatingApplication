@@ -7,5 +7,8 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="yellow">#E9EDC9</color>
+    <color name="dark_gray">#303030</color> <!-- A dark gray background -->
+    <color name="deep_red">#B71C1C</color>  <!-- A deep red for the bottom bar -->
+    <color name="warm_white">#FFF8E1</color>
 
 </resources>

@@ -10,7 +10,6 @@ import com.example.movieratingapplication.viewModel.AuthViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var navController: NavController
     private val authViewModel: AuthViewModel by viewModels()
 
@@ -30,15 +29,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateBottomNavigationMenu(bottomNavigationView: BottomNavigationView, isAuthenticated: Boolean) {
+    private fun updateBottomNavigationMenu(
+        bottomNavigationView: BottomNavigationView,
+        isAuthenticated: Boolean
+    ) {
         val menu = bottomNavigationView.menu
         menu.clear()
 
         if (isAuthenticated) {
-            menu.add(0, R.id.movieRecyclerFragment, 0, "Movies")
-            menu.add(0, R.id.profileFragment, 1, "Profile")
+            menu.add(0, R.id.movieRecyclerFragment, 0, "Movies").apply {
+                setIcon(R.drawable.movie)
+            }
+
+            menu.add(0, R.id.profileFragment, 1, "Profile").apply {
+                setIcon(R.drawable.user_profile)
+            }
+
         } else {
-            menu.add(0, R.id.loginFragment, 0, "Log In")
+            menu.add(0, R.id.logout_button, 0, "Log In").apply {
+                setIcon(R.drawable.movies)
+            }
         }
-    }
-}
+}}
