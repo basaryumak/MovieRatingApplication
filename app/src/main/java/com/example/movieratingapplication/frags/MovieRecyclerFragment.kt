@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieratingapplication.R
-import com.example.movieratingapplication.adapter.FeedRecyclerAdapter
+import com.example.movieratingapplication.adapter.FeedListAdapter
 import com.example.movieratingapplication.databinding.FragmentMovieRecyclerBinding
 import com.example.movieratingapplication.model.Movie
 import com.google.firebase.auth.FirebaseAuth
@@ -24,8 +24,7 @@ class MovieRecyclerFragment : Fragment(R.layout.fragment_movie_recycler) {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
-    private lateinit var movieArrayList: ArrayList<Movie>
-    private lateinit var feedAdapter: FeedRecyclerAdapter
+    private lateinit var feedAdapter: FeedListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,16 +38,15 @@ class MovieRecyclerFragment : Fragment(R.layout.fragment_movie_recycler) {
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
-        movieArrayList = ArrayList()
 
+        // Initialize RecyclerView
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
-        feedAdapter = FeedRecyclerAdapter(movieArrayList)
+        feedAdapter = FeedListAdapter()
         binding.recyclerView.adapter = feedAdapter
 
+        // Load data
         receiveData()
     }
-
 
     @SuppressLint("NotifyDataSetChanged")
     private fun receiveData() {
@@ -60,9 +58,7 @@ class MovieRecyclerFragment : Fragment(R.layout.fragment_movie_recycler) {
                 }
 
                 if (value != null && !value.isEmpty) {
-                    val movies = value.documents
-                    movieArrayList.clear()
-                    for (movie in movies) {
+                    val movies = value.documents.map { movie ->
                         val title = movie.getString("title") ?: ""
                         val releaseDate = movie.getString("release_date") ?: ""
                         val overview = movie.getString("overview") ?: ""
@@ -70,14 +66,9 @@ class MovieRecyclerFragment : Fragment(R.layout.fragment_movie_recycler) {
                         val movieId = movie.id
 
                         val ratingsListLiveData = MutableLiveData<List<Float>>(emptyList())
-
                         val movieObj = Movie(overview, posterImage, releaseDate, title, ratingsListLiveData, movieId)
-                        movieArrayList.add(movieObj)
 
-                        ratingsListLiveData.observe(viewLifecycleOwner) {
-                            feedAdapter.notifyDataSetChanged()
-                        }
-
+                        // Listen for rating updates
                         movie.reference.collection("ratings").addSnapshotListener { ratingsSnapshot, ratingsError ->
                             if (ratingsError != null) {
                                 Toast.makeText(requireContext(), ratingsError.localizedMessage, Toast.LENGTH_LONG).show()
@@ -90,12 +81,15 @@ class MovieRecyclerFragment : Fragment(R.layout.fragment_movie_recycler) {
 
                             ratingsListLiveData.postValue(ratings)
                         }
+
+                        movieObj
                     }
-                    feedAdapter.notifyDataSetChanged()
+
+                    // Submit the list to the adapter
+                    feedAdapter.submitList(movies)
                 }
             }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
