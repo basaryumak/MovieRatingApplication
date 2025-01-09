@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.graphics.ColorUtils
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
@@ -86,11 +85,7 @@ class FeedListAdapter : ListAdapter<Movie, FeedListAdapter.MovieViewHolder>(Movi
         }
 
         holder.binding.recyclerImageView.setOnClickListener {
-            // **Added: Log and Toast for debugging (optional)**
             Log.d("FeedListAdapter", "Image clicked: ${movie.title}")
-            Toast.makeText(holder.binding.root.context, "Clicked on ${movie.title}", Toast.LENGTH_SHORT).show()
-
-            // **Added: Show the dialog when the image is clicked**
             showMovieOverviewDialog(holder.binding.root.context, movie)
         }
 
@@ -121,7 +116,6 @@ class FeedListAdapter : ListAdapter<Movie, FeedListAdapter.MovieViewHolder>(Movi
         }
     }
 
-
     private fun showMovieOverviewDialog(context: Context, movie: Movie) {
         val dialogBinding = DialogMovieOverviewBinding.inflate(LayoutInflater.from(context))
 
@@ -139,6 +133,4 @@ class FeedListAdapter : ListAdapter<Movie, FeedListAdapter.MovieViewHolder>(Movi
             .create()
         dialog.show()
     }
-
-
 }
