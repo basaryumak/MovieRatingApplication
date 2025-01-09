@@ -11,14 +11,14 @@
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="297dp"
-        android:layout_height="437dp"
+        android:layout_width="370dp"
+        android:layout_height="637dp"
         android:padding="8dp">
 
         <ImageView
             android:id="@+id/recyclerImageView"
-            android:layout_width="199dp"
-            android:layout_height="312dp"
+            android:layout_width="276dp"
+            android:layout_height="448dp"
             android:layout_marginStart="6dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="6dp"
@@ -31,9 +31,9 @@
 
         <RatingBar
             android:id="@+id/recyclerRatingBar"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="80dp"
-            android:layout_height="20dp"
+            style="?android:attr/ratingBarStyle"
+            android:layout_width="237dp"
+            android:layout_height="53dp"
             android:layout_marginTop="12dp"
             android:indeterminateTint="@color/purple_500"
             android:isIndicator="true"
@@ -48,8 +48,8 @@
 
         <Button
             android:id="@+id/recyclerRateButton"
-            android:layout_width="36dp"
-            android:layout_height="34dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@drawable/rate_icon"
             app:layout_constraintEnd_toStartOf="@id/recyclerCommentButton"
             app:layout_constraintStart_toStartOf="@id/recyclerRatingBar"
@@ -57,8 +57,8 @@
 
         <Button
             android:id="@+id/recyclerCommentButton"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@drawable/comment_bubble"
             app:layout_constraintEnd_toEndOf="@id/recyclerRatingBar"
             app:layout_constraintStart_toEndOf="@id/recyclerRateButton"
@@ -66,13 +66,12 @@
 
         <TextView
             android:id="@+id/recyclerTitleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="4dp"
             android:text="@string/movieName"
             android:textAlignment="center"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/recyclerImageView"
             app:layout_constraintStart_toStartOf="@id/recyclerImageView"
