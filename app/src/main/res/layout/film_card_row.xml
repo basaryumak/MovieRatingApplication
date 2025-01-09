@@ -11,24 +11,23 @@
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="297dp"
+        android:layout_height="437dp"
         android:padding="8dp">
 
         <ImageView
             android:id="@+id/recyclerImageView"
-            android:layout_width="139dp"
-            android:layout_height="177dp"
+            android:layout_width="199dp"
+            android:layout_height="312dp"
             android:layout_marginStart="6dp"
-            android:layout_marginEnd="6dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="6dp"
             android:contentDescription="@string/film_poster"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recyclerTitleText"
-            tools:srcCompat="@tools:sample/backgrounds/scenic[5]"
             app:layout_constraintTop_toTopOf="parent"
-            />
+            tools:srcCompat="@tools:sample/backgrounds/scenic[5]" />
 
         <RatingBar
             android:id="@+id/recyclerRatingBar"
@@ -36,21 +35,21 @@
             android:layout_width="80dp"
             android:layout_height="20dp"
             android:layout_marginTop="12dp"
+            android:indeterminateTint="@color/purple_500"
             android:isIndicator="true"
             android:numStars="5"
-            android:rating="2"
-            android:stepSize="0.5"
             android:progressTint="@color/purple_500"
+            android:rating="2"
             android:secondaryProgressTint="@color/purple_500"
-            android:indeterminateTint="@color/purple_500"
+            android:stepSize="0.5"
             app:layout_constraintEnd_toEndOf="@id/recyclerImageView"
             app:layout_constraintStart_toStartOf="@id/recyclerImageView"
             app:layout_constraintTop_toBottomOf="@id/recyclerTitleText" />
 
         <Button
             android:id="@+id/recyclerRateButton"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="36dp"
+            android:layout_height="34dp"
             android:background="@drawable/rate_icon"
             app:layout_constraintEnd_toStartOf="@id/recyclerCommentButton"
             app:layout_constraintStart_toStartOf="@id/recyclerRatingBar"
@@ -58,8 +57,8 @@
 
         <Button
             android:id="@+id/recyclerCommentButton"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
             android:background="@drawable/comment_bubble"
             app:layout_constraintEnd_toEndOf="@id/recyclerRatingBar"
             app:layout_constraintStart_toEndOf="@id/recyclerRateButton"
@@ -75,10 +74,9 @@
             android:textAlignment="center"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/recyclerImageView"
-            app:layout_constraintStart_toStartOf="@id/recyclerImageView"
             app:layout_constraintEnd_toEndOf="@id/recyclerImageView"
-            />
+            app:layout_constraintStart_toStartOf="@id/recyclerImageView"
+            app:layout_constraintTop_toBottomOf="@id/recyclerImageView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
