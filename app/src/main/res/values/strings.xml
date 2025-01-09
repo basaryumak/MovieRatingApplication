@@ -15,4 +15,5 @@
     <string name="film_poster">Film poster</string>
     <string name="rate_now">RATE NOW !</string>
     <string name="numRatings">123 ratings</string>
+    <string name="delete">Delete</string>
 </resources>

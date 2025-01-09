@@ -24,6 +24,9 @@
             android:id="@+id/action_movieRecyclerFragment_to_rateFragment"
             app:destination="@id/rateFragment" />
 
+        <action
+            android:id="@+id/action_movieRecyclerFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
     </fragment>
 
     <fragment
@@ -52,4 +55,18 @@
             app:destination="@id/loginFragment" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/commentFragment"
+        android:name="com.example.movieratingapplication.frags.CommentFragment" >
+
+        <action
+            android:id="@+id/action_commentFragment_to_movieRecyclerFragment"
+            app:destination="@id/movieRecyclerFragment" />
+
+    </fragment>
+
+
+
+
 </navigation>

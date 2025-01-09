@@ -66,6 +66,21 @@ class FeedListAdapter : ListAdapter<Movie, FeedListAdapter.MovieViewHolder>(Movi
         // Load the image into the target
         Picasso.get().load(movie.posterImage).into(target)
 
+        holder.binding.recyclerCommentButton.setOnClickListener {
+            val navController = findNavController(holder.itemView)
+            val action = R.id.action_movieRecyclerFragment_to_commentFragment
+            val currentDestination = navController.currentDestination?.id
+
+            if(currentDestination == R.id.commentFragment) {
+                navController.navigate(R.id.action_commentFragment_to_movieRecyclerFragment)
+            }
+
+            val bundle = Bundle().apply {
+                putString("MOVIE_ID", movie.iD)
+            }
+            navController.navigate(action, bundle)
+        }
+
         holder.binding.recyclerRateButton.setOnClickListener {
             val navController = findNavController(holder.itemView)
             val action = R.id.action_movieRecyclerFragment_to_rateFragment
